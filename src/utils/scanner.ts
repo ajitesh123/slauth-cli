@@ -12,6 +12,13 @@ export default class Scanner {
     codeSnippets: string[],
     modelName?: keyof typeof OpenAIModels
   ) {
+    try {
+      // existing scan logic
+    } catch (error) {
+      console.error(`Scanning error: ${error.message}`);
+      // Implement retry logic or return a default/fallback result
+    }
+  ) {
     return await this.strategy.scan(codeSnippets, modelName);
   }
 }

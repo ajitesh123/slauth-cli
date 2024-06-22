@@ -14,6 +14,8 @@
     "slauth": "dist/index.js"
   },
   "scripts": {
+    "lint": "eslint 'src/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./scripts/update-version.sh && tsc --removeComments --declaration",
     "build-watch": "./scripts/update-version.sh && tsc --watch",
