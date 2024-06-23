@@ -64,6 +64,8 @@ function getResultType(cloudProvider: keyof typeof CloudProviders) {
       return 'Policies';
     case 'gcp':
       return 'Custom Roles';
+    case 'azure':
+      return 'Roles';
     default:
       return 'Result';
   }
