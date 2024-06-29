@@ -13,3 +13,5 @@ const ScannerStrategies: ScannerStrategiesType = {
 };
 
 export default ScannerStrategies;
+import AzureScanner from './azure';
+  azure: new AzureScanner(),

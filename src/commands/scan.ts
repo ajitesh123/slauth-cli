@@ -94,3 +94,5 @@ async function scan(
 }
 
 export default scanCommand;
+    case 'azure':
+      return 'Role Assignments';
