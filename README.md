@@ -19,8 +19,34 @@
   <img alt="NPM Downloads" src="https://img.shields.io/npm/dw/@slauth.io/slauth" />
   <img alt="GitHub issues" src="https://img.shields.io/github/issues/slauth-io/slauth-cli" />
   <img alt="NPM License" src="https://img.shields.io/npm/l/@slauth.io/slauth" />
+  <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/slauth-io/slauth-cli" />
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/slauth-io/slauth-cli" />
+  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/slauth-io/slauth-cli" />
 </p>
 
+## Quick Links
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Prerequisites](#prerequisites)
+- [Development Setup](#development-setup)
+- [Contributing](CONTRIBUTING.md)
+- [Project Structure](#project-structure)
+
+## Version Compatibility
+
+| Slauth CLI Version | Node.js Version |
+|-------------------|-----------------|
+| 1.x.x            | >= 16.x        |
+| 0.x.x            | >= 14.x        |
+
+## Prerequisites
+
+- Node.js (LTS version 16+)
+- npm (version 7+)
+- Git
+- OpenAI API key for development
+- Basic understanding of IAM policies and cloud services (AWS/GCP)
 ## Installation
 
 ```bash
@@ -178,10 +204,132 @@ jobs:
           path: policies.json
 ```
 
-## Development
+## Development Setup
 
-1. Set your `OPENAI_API_KEY` in the `.env` file at the root of the project
-2. Run `npm i`
-3. Install the `slauth` CLI globally: `npm install -g .`
-4. Compile tsc on file change: `npm run build-watch`
-5. Test it, `slauth -h` should work
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/slauth-io/slauth-cli.git
+   cd slauth-cli
+   ```
+
+2. Create environment file:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Configure your OpenAI API key in `.env`:
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   ```
+
+4. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+5. Install CLI globally for local testing:
+   ```bash
+   npm install -g .
+   ```
+
+6. Start development build watch:
+   ```bash
+   npm run build-watch
+   ```
+
+7. Verify installation:
+   ```bash
+   slauth --help
+   ```
+
+## Project Structure
+
+```bash
+slauth-cli/
+├── src/                    # Source code
+│   ├── types/             # TypeScript type definitions
+│   ├── utils/             # Utility functions and helpers
+│   │   ├── scanner-strategies/  # Cloud provider specific scanners
+│   │   └── ...
+│   └── ...
+├── static/                # Static assets
+├── tests/                 # Test files
+├── .github/               # GitHub specific files
+│   └── workflows/         # CI/CD workflow definitions
+└── package.json          # Project dependencies and scripts
+```
+
+### Key Components
+
+- **Scanner Strategies**: Implementation of different cloud provider scanning logic
+- **Types**: TypeScript interfaces and type definitions
+- **Utils**: Helper functions and core functionality
+
+## Testing
+
+1. Run unit tests:
+   ```bash
+   npm test
+   ```
+
+2. Run linting:
+   ```bash
+   npm run lint
+   ```
+
+3. Run type checking:
+   ```bash
+   npm run type-check
+   ```
+
+## Debug Mode
+
+Enable debug mode by setting the DEBUG environment variable:
+```bash
+DEBUG=slauth:* slauth scan -p aws ./path/to/repository
+```
+
+## Common Development Tasks
+
+1. Adding a new scanner strategy:
+   - Create new strategy file in `src/utils/scanner-strategies/`
+   - Implement `ScannerStrategy` interface
+   - Register strategy in scanner factory
+
+2. Modifying existing scanners:
+   - Update relevant strategy in `src/utils/scanner-strategies/`
+   - Add tests in `tests/` directory
+   - Update documentation if necessary
+
+## Security
+
+### Reporting Security Issues
+
+If you discover a security vulnerability within Slauth CLI, please send an email to security@slauth.io. All security vulnerabilities will be promptly addressed.
+
+### Best Practices
+
+- Keep your OpenAI API key secure and never commit it to version control
+- Regularly update to the latest version for security patches
+- Review generated IAM policies before implementation
+
+## Troubleshooting
+
+### Common Issues
+
+1. **OpenAI API Key Issues**
+   - Ensure the key is properly set in your environment
+   - Verify the key has sufficient permissions
+
+2. **Scanning Errors**
+   - Check if the repository path is correct
+   - Ensure you have sufficient permissions to read the repository
+
+3. **Installation Problems**
+   - Clear npm cache: `npm cache clean --force`
+   - Try installing with `--verbose` flag
+
+For more help, please:
+- Check our [FAQ](https://docs.slauth.io/faq) section
+- Join our [Slack community](https://join.slack.com/t/slauthiocommunity/shared_invite/zt-268nxuwyd-Vav8lYJdiP44Kt8lQSSybg)
+- Open an issue on GitHub
